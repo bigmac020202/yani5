@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yani - Surpresa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            touch-action: manipulation;
+        }
+        
+        #name {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.2s;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #name:active {
+            transform: scale(0.95);
+        }
+        
+        #progress-container {
+            width: 80%;
+            max-width: 300px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #4CAF50;
+            transition: width 0.3s;
+        }
+        
+        #message {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .counter {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="name">Yani</div>
+    <div class="counter">Cliques: <span id="click-count">0</span>/3</div>
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+    <div id="message">VOCÊ É FODA ❤</div>
+
+    <script>
+        let clickCount = 0;
+        const nameElement = document.getElementById('name');
+        const clickCountElement = document.getElementById('click-count');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const messageElement = document.getElementById('message');
+        
+        nameElement.addEventListener('click', function() {
+            clickCount++;
+            clickCountElement.textContent = clickCount;
+            
+            // Mostra a barra de progresso no primeiro clique
+            if (clickCount === 1) {
+                progressContainer.style.display = 'block';
+            }
+            
+            // Atualiza a barra de progresso
+            const progressWidth = (clickCount / 3) * 100;
+            progressBar.style.width = progressWidth + '%';
+            
+            // Muda a cor da barra conforme progride
+            if (clickCount === 2) {
+                progressBar.style.backgroundColor = '#FFA500'; // laranja
+            }
+            
+            // No terceiro clique, mostra a mensagem
+            if (clickCount >= 3) {
+                messageElement.style.display = 'block';
+                progressBar.style.backgroundColor = '#FF0000'; // vermelho
+                nameElement.style.display = 'none';
+                document.querySelector('.counter').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+
+
